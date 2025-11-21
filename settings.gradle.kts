@@ -21,4 +21,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "DiPlayground"
 include(":app")
+include(":core")
+include(":data-dagger")
+include(":feature-legacy")
  
