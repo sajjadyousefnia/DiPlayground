@@ -1,0 +1,103 @@
+# ==========================
+# Git ignore for Android/Kotlin (Gradle + Android Studio)
+# Comprehensive defaults to keep the repo clean and portable.
+# ==========================
+
+# OS junk
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+
+# Logs and temp files
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# ==========================
+# Gradle
+# ==========================
+.gradle/
+**/build/
+build/
+
+# Prevent ignoring the Gradle wrapper
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
+
+# Kotlin/Gradle caches
+.kotlin/
+.kotlinc/
+.ksp/
+
+# Local configuration
+local.properties
+*.local
+
+# ==========================
+# Android/NDK
+# ==========================
+captures/
+.externalNativeBuild/
+.cxx/
+obj/
+
+# Android packages/artifacts
+*.apk
+*.ap_
+*.aab
+*.aar
+
+# Keystores and signing
+*.jks
+*.keystore
+keystore.properties
+signing.properties
+
+# Google/Firebase
+google-services.json
+GoogleService-Info.plist
+crashlytics-build.properties
+fabric.properties
+
+# ==========================
+# IDEs
+# ==========================
+# Android Studio / IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# VS Code
+.vscode/
+
+# JetBrains Fleet
+.fleet/
+
+# ==========================
+# Misc tools
+# ==========================
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
+fastlane/readme.md
+
+# Lint/Reports (if generated inside project)
+**/lint-results.*
+**/lint-*.*
+**/reports/
+
+# ==========================
+# Others
+# ==========================
+# IntelliJ HTTP client requests
+.idea/httpRequests/
+
+# Local environment files
+.env
+.env.*
