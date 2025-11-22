@@ -1,23 +1,23 @@
-package com.sajjady.di
+package com.sajjady.di.app
 
 import android.app.Application
+import com.sajjady.di.app.di.SystemTimeProvider
 import com.sajjady.di.core.model.AppConfig
 import com.sajjady.di.core.util.TimeProvider
 import com.sajjady.di.data.di.DaggerDataComponent
 import com.sajjady.di.data.di.DataComponent
 import com.sajjady.di.data.di.DataComponentProvider
-import com.sajjady.di.app.di.SystemTimeProvider
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class DiPlaygroundApplication : Application(), DataComponentProvider {
+class DiApplication : Application(), DataComponentProvider {
 
     lateinit var dataComponent: DataComponent
         private set
 
     override fun onCreate() {
         super.onCreate()
-        // Data component initialization is delegated to Hilt modules to ensure shared instances.
+        // The component is created lazily to demonstrate integration between Hilt and a manual graph.
     }
 
     override fun dataComponent(): DataComponent {
