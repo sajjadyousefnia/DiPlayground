@@ -1,0 +1,10 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.sajjady.di.legacy">
+
+    <application>
+        <activity
+            android:name="com.sajjady.di.legacy.ui.LegacyActivity"
+            android:exported="false"
+            android:label="DI Playground Legacy" />
+    </application>
+</manifest>
