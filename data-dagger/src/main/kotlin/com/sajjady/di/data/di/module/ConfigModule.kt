@@ -5,9 +5,11 @@ import com.sajjady.di.data.RemoteConfig
 import com.sajjady.di.data.impl.FakeRemoteConfig
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.migration.DisableInstallInCheck
 import javax.inject.Named
 
 @Module
+@DisableInstallInCheck
 object ConfigModule {
     @Provides
     fun provideRemoteConfig(): RemoteConfig = FakeRemoteConfig()
