@@ -8,9 +8,7 @@ plugins {
 
 android {
     namespace = "com.sajjady.di"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.sajjady.di"
