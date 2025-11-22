@@ -1,8 +1,8 @@
 package com.sajjady.di.data
 
-import com.google.dagger.assisted.Assisted
-import com.google.dagger.assisted.AssistedFactory
-import com.google.dagger.assisted.AssistedInject
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import javax.inject.Provider
 import dagger.Lazy
 
