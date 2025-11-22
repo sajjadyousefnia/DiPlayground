@@ -5,14 +5,21 @@ import com.sajjady.di.data.impl.CompositeAnalyticsService
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoSet
+import dagger.hilt.migration.DisableInstallInCheck
 
 @Module
+@DisableInstallInCheck
 class AnalyticsModule {
 
     @Provides
     @DataScope
     fun provideCompositeAnalyticsService(services: Set<@JvmSuppressWildcards AnalyticsService>): AnalyticsService =
         CompositeAnalyticsService(services)
+
+    @Provides
+    @DataScope
+    fun provideAnalyticsService(compositeAnalyticsService: CompositeAnalyticsService): AnalyticsService =
+        compositeAnalyticsService
 
     @Provides
     @IntoSet

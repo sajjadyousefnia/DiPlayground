@@ -16,12 +16,14 @@ import dagger.Component
 import dagger.Module
 import dagger.Provides
 import dagger.assisted.AssistedModule
+import dagger.hilt.migration.DisableInstallInCheck
 import dagger.multibindings.IntoMap
 import dagger.multibindings.IntoSet
 import dagger.multibindings.StringKey
 import javax.inject.Singleton
 
 @Module(includes = [AssistedFactories::class])
+@DisableInstallInCheck
 object DataBindingsModule {
     @Provides
     @Singleton
@@ -44,6 +46,10 @@ object DataBindingsModule {
     @Singleton
     @FileLogger
     fun provideFileAnalytics(): AnalyticsService = LoggerAnalyticsService("file")
+
+    @Provides
+    @Singleton
+    fun provideAnalyticsService(@LogcatLogger analyticsService: AnalyticsService): AnalyticsService = analyticsService
 
     @Provides
     @Singleton
@@ -70,6 +76,7 @@ object DataBindingsModule {
 
 @Module
 @AssistedModule
+@DisableInstallInCheck
 interface AssistedFactories
 
 @Component(modules = [DataBindingsModule::class])

@@ -11,8 +11,10 @@ import dagger.Provides
 import dagger.multibindings.IntoMap
 import dagger.multibindings.IntoSet
 import dagger.multibindings.StringKey
+import dagger.hilt.migration.DisableInstallInCheck
 
 @Module
+@DisableInstallInCheck
 abstract class AnalyticsModule {
     @Binds
     @LogcatLogger
@@ -40,5 +42,8 @@ abstract class AnalyticsModule {
         @IntoMap
         @StringKey("file")
         fun provideFileAnalyticsMap(@FileLogger service: AnalyticsService): AnalyticsService = service
+
+        @Provides
+        fun provideAnalyticsService(@LogcatLogger service: AnalyticsService): AnalyticsService = service
     }
 }
