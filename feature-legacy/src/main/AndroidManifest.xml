@@ -1,10 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sajjady.di.legacy">
 
-    <application>
+    <application
+        android:name=".LegacyApplication"
+        android:label="Dagger Legacy">
         <activity
-            android:name="com.sajjady.di.legacy.ui.LegacyActivity"
-            android:exported="false"
-            android:label="DI Playground Legacy" />
+            android:name=".ui.LegacyNotesActivity"
+            android:exported="false" />
     </application>
 </manifest>
