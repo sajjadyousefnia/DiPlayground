@@ -14,6 +14,8 @@ dependencies {
     implementation(project(":core"))
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
+    implementation(libs.hilt.core)
+    kapt(libs.hilt.compiler)
 }
 
 kapt {

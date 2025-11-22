@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
-        android:name=".DiPlaygroundApplication"
+        android:name="com.sajjady.di.app.DiApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -23,6 +23,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name="com.sajjady.di.service.AnalyticsUploadService"
+            android:exported="false" />
+
+        <receiver
+            android:name="com.sajjady.di.receiver.BootCompletedReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name="com.sajjady.di.provider.InitContentProvider"
+            android:authorities="com.sajjady.di.init"
+            android:exported="false" />
     </application>
 
 </manifest>

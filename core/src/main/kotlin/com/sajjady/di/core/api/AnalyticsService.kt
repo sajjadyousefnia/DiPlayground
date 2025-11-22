@@ -1,5 +1,7 @@
 package com.sajjady.di.core.api
 
+/** Simple analytics contract used across the samples. */
 interface AnalyticsService {
-    fun logEvent(name: String, properties: Map<String, Any?> = emptyMap())
+    val name: String
+    fun logEvent(event: String)
 }

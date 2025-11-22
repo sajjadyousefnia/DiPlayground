@@ -3,66 +3,73 @@ package com.sajjady.di
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
-import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import com.sajjady.di.ui.MainViewModel
+import androidx.compose.runtime.remember
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import com.sajjady.di.ui.hilt.HiltBasicsScreen
+import com.sajjady.di.ui.hilt.HiltCustomComponentScreen
+import com.sajjady.di.ui.hilt.HiltMultibindingScreen
+import com.sajjady.di.ui.hilt.HiltQualifiersScreen
+import com.sajjady.di.ui.hilt.HiltScopesScreen
+import com.sajjady.di.ui.navigation.HiltDestination
+import com.sajjady.di.ui.navigation.ScreenNavigator
+import com.sajjady.di.ui.screens.HomeScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    private val viewModel: MainViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            DiPlaygroundApp(viewModel)
+            MaterialTheme {
+                Surface { DiPlaygroundNav() }
+            }
         }
     }
 }
 
 @Composable
-fun DiPlaygroundApp(viewModel: MainViewModel) {
-    val notes by viewModel.notes
-    val environment by viewModel.environment
+fun DiPlaygroundNav() {
+    val navController = rememberNavController()
+    val navigator = remember { ScreenNavigator() }
+    val backStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = backStackEntry?.destination?.route ?: HiltDestination.Home.route
 
-    MaterialTheme {
-        Scaffold { paddingValues ->
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues)
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                Text(text = "DI Playground", style = MaterialTheme.typography.headlineMedium)
-                Text(text = "Environment: $environment", style = MaterialTheme.typography.bodyLarge)
-                Button(onClick = { viewModel.addSampleNote() }) {
-                    Text("Add sample note")
-                }
-                Divider()
-                LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    items(notes) { note ->
-                        Text(text = viewModel.format(note), style = MaterialTheme.typography.bodyMedium)
-                        Spacer(modifier = Modifier.height(4.dp))
-                    }
-                }
+    NavHost(navController = navController, startDestination = HiltDestination.Home.route) {
+        composable(HiltDestination.Home.route) {
+            HomeScreen(currentRoute) { destination ->
+                navigator.navigate(destination)
+                navController.navigate(destination.route)
             }
+        }
+        composable(HiltDestination.Basics.route) {
+            HiltBasicsScreen(viewModel = hiltViewModel())
+        }
+        composable(HiltDestination.Scopes.route) {
+            HiltScopesScreen(viewModel = hiltViewModel())
+        }
+        composable(HiltDestination.Qualifiers.route) {
+            HiltQualifiersScreen(viewModel = hiltViewModel())
+        }
+        composable(HiltDestination.Multibinding.route) {
+            HiltMultibindingScreen(viewModel = hiltViewModel())
+        }
+        composable(HiltDestination.CustomComponent.route) {
+            HiltCustomComponentScreen(viewModel = hiltViewModel())
+        }
+        composable(HiltDestination.DaggerPlayground.route) {
+            // Placeholder for dagger demo
+            HiltBasicsScreen(viewModel = hiltViewModel())
+        }
+        composable(HiltDestination.Legacy.route) {
+            HiltBasicsScreen(viewModel = hiltViewModel())
         }
     }
 }
