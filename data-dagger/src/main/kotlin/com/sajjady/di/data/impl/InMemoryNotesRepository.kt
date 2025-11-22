@@ -1,24 +1,17 @@
 package com.sajjady.di.data.impl
 
-import com.sajjady.di.core.api.AnalyticsService
-import com.sajjady.di.core.api.NotesRepository
-import com.sajjady.di.core.model.Note
-import com.sajjady.di.data.di.DataScope
+import com.sajjady.di.data.Note
+import com.sajjady.di.data.NotesRepository
 import javax.inject.Inject
 
-@DataScope
-class InMemoryNotesRepository @Inject constructor(
-    private val analyticsService: AnalyticsService
-) : NotesRepository {
+class InMemoryNotesRepository @Inject constructor() : NotesRepository {
+    private val notes = linkedMapOf<String, Note>()
 
-    private val notes = LinkedHashMap<String, Note>()
+    override fun getNotes(): List<Note> = notes.values.toList()
 
-    override fun getAllNotes(): List<Note> = notes.values.toList()
-
-    override fun getNoteById(id: String): Note? = notes[id]
+    override fun getNoteById(noteId: String): Note? = notes[noteId]
 
     override fun addNote(note: Note) {
         notes[note.id] = note
-        analyticsService.logEvent("note_added", mapOf("noteId" to note.id))
     }
 }
