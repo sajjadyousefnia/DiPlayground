@@ -15,14 +15,13 @@ import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import dagger.assisted.AssistedModule
 import dagger.hilt.migration.DisableInstallInCheck
 import dagger.multibindings.IntoMap
 import dagger.multibindings.IntoSet
 import dagger.multibindings.StringKey
 import javax.inject.Singleton
 
-@Module(includes = [AssistedFactories::class])
+@Module(subcomponents = [UserComponent::class])
 @DisableInstallInCheck
 object DataBindingsModule {
     @Provides
@@ -73,11 +72,6 @@ object DataBindingsModule {
     @StringKey("file")
     fun provideMapFile(@FileLogger analyticsService: AnalyticsService): AnalyticsService = analyticsService
 }
-
-@Module
-@AssistedModule
-@DisableInstallInCheck
-interface AssistedFactories
 
 @Component(modules = [DataBindingsModule::class])
 @Singleton

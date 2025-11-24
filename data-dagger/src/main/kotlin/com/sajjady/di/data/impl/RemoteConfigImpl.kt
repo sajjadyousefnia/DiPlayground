@@ -9,7 +9,7 @@ import javax.inject.Inject
 class RemoteConfigImpl @Inject constructor(
     private val appConfig: AppConfig
 ) : RemoteConfig {
-    override fun isFeatureEnabled(key: String): Boolean = appConfig.featureFlags[key] ?: false
+    override fun getBoolean(key: String): Boolean? = appConfig.featureFlags[key]
 
     override fun getString(key: String): String? = when (key) {
         "environment" -> appConfig.environment

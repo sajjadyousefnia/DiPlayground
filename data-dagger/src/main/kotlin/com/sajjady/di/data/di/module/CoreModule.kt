@@ -9,8 +9,8 @@ import com.sajjady.di.data.impl.InMemoryNotesRepository
 import com.sajjady.di.data.impl.SystemTimeProvider
 import dagger.Binds
 import dagger.Module
+import dagger.Reusable
 import dagger.hilt.migration.DisableInstallInCheck
-import javax.inject.Reusable
 
 @Module
 @DisableInstallInCheck

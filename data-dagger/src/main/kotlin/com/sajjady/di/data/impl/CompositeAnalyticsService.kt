@@ -9,20 +9,26 @@ class CompositeAnalyticsService @Inject constructor(
     private val services: Set<@JvmSuppressWildcards AnalyticsService>
 ) : AnalyticsService {
 
-    override fun logEvent(name: String, properties: Map<String, String>) {
-        services.forEach { it.logEvent(name, properties) }
+    override val name: String = "composite"
+
+    override fun logEvent(event: String) {
+        services.forEach { it.logEvent(event) }
     }
 
     object ConsoleLogger : AnalyticsService {
-        override fun logEvent(name: String, properties: Map<String, String>) {
-            println("[ConsoleAnalytics] $name -> ${properties.ifEmpty { mapOf("status" to "ok") }}")
+        override val name: String = "console"
+
+        override fun logEvent(event: String) {
+            println("[ConsoleAnalytics] $event")
         }
     }
 
     object InMemoryLogger : AnalyticsService {
+        override val name: String = "memory"
         private val events = mutableListOf<String>()
-        override fun logEvent(name: String, properties: Map<String, String>) {
-            events += "${name}:${properties.size}"
+
+        override fun logEvent(event: String) {
+            events += event
         }
 
         fun snapshot(): List<String> = events.toList()

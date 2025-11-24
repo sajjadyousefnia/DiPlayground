@@ -34,6 +34,7 @@ interface AppComponent {
     fun initializer(): Initializer
     fun noteDetailsPresenterFactory(): NoteDetailsPresenter.Factory
 
+    fun debugComponentFactory(): DebugComponent.Factory
     fun userComponentFactory(): UserComponent.Factory
 
     @Component.Factory
