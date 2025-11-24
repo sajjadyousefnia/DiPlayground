@@ -18,12 +18,14 @@ import com.sajjady.di.legacy.di.LegacyModule;
 import java.util.UUID;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 public class LegacyActivity extends AppCompatActivity implements LegacyComponentOwner {
 
     private LegacyComponent legacyComponent;
 
     @Inject
+    @Named("legacyNoteFormatter")
     NoteFormatter.Factory noteFormatterFactory;
 
     @Inject
