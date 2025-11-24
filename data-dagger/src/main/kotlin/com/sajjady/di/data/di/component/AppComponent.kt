@@ -23,6 +23,7 @@ interface AppComponent {
     fun remoteConfig(): RemoteConfig
     fun timeProvider(): TimeProvider
     fun userSessionManager(): UserSessionManager
+    fun analyticsService(): AnalyticsService
 
     @LogcatLogger
     fun defaultAnalytics(): AnalyticsService
