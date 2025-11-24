@@ -17,6 +17,7 @@ import com.sajjady.di.data.NotesRepository;
 import com.sajjady.di.data.UserSessionManager;
 import com.sajjady.di.legacy.R;
 
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -54,6 +55,6 @@ public class LegacyNotesFragment extends Fragment {
                 .map(Note::getTitle)
                 .collect(Collectors.joining(", "));
         textView.setText(notes);
-        analyticsService.logEvent("legacy_fragment_loaded");
+        analyticsService.logEvent("legacy_fragment_loaded", Collections.emptyMap());
     }
 }

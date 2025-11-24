@@ -16,6 +16,8 @@ import com.sajjady.di.legacy.R;
 import com.sajjady.di.legacy.di.DaggerLegacyActivityComponent;
 import com.sajjady.di.legacy.di.LegacyActivityComponent;
 
+import java.util.Collections;
+
 import javax.inject.Inject;
 
 public class LegacyNotesActivity extends AppCompatActivity implements LegacyComponentProvider {
@@ -70,7 +72,7 @@ public class LegacyNotesActivity extends AppCompatActivity implements LegacyComp
         Button button = findViewById(R.id.log_event_button);
         button.setOnClickListener(v -> {
             legacyLogger.logNotesDisplayed();
-            analyticsService.logEvent("legacy_button_clicked");
+            analyticsService.logEvent("legacy_button_clicked", Collections.emptyMap());
         });
     }
 
