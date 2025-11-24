@@ -15,6 +15,4 @@ class LegacyApplication : Application() {
         appComponent = DaggerAppComponent.factory()
             .create(ApplicationContext("legacy"), AppConfig(flavor = "legacy", isDebug = true))
     }
-
-    fun getAppComponent(): AppComponent = appComponent
 }

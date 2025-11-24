@@ -85,6 +85,7 @@ interface DataComponent {
     fun remoteConfig(): RemoteConfig
     fun userSessionManager(): UserSessionManager
     fun noteFormatterFactory(): NoteFormatter.Factory
+    fun timeProvider(): TimeProvider
     fun multiboundAnalytics(): Set<@JvmSuppressWildcards AnalyticsService>
     fun analyticsMap(): Map<String, @JvmSuppressWildcards AnalyticsService>
     fun userComponentFactory(): UserComponent.Factory
