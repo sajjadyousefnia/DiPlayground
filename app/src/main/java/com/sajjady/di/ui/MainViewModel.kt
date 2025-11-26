@@ -9,7 +9,7 @@ import com.sajjady.di.core.api.UserSessionManager
 import com.sajjady.di.core.model.Note
 import com.sajjady.di.core.model.User
 import com.sajjady.di.core.util.TimeProvider
-import com.sajjady.di.data.assisted.NoteFormatter
+import com.sajjady.di.data.di.DataComponent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.UUID
 import javax.inject.Inject
@@ -18,7 +18,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val notesRepository: NotesRepository,
     private val userSessionManager: UserSessionManager,
-    private val noteFormatterFactory: NoteFormatter.Factory,
+    private val dataComponent: DataComponent,
     private val remoteConfig: RemoteConfig,
     private val analyticsService: AnalyticsService,
     private val timeProvider: TimeProvider
@@ -45,5 +45,5 @@ class MainViewModel @Inject constructor(
         notes.value = notesRepository.getAllNotes()
     }
 
-    fun format(note: Note): String = noteFormatterFactory.create(note).render()
+    fun format(note: Note): String = dataComponent.noteFormatterFactory().create(note).render()
 }

@@ -8,7 +8,6 @@ import com.sajjady.di.core.api.RemoteConfig
 import com.sajjady.di.core.api.UserSessionManager
 import com.sajjady.di.core.model.AppConfig
 import com.sajjady.di.core.util.TimeProvider
-import com.sajjady.di.data.assisted.NoteFormatter
 import com.sajjady.di.data.di.DaggerDataComponent
 import com.sajjady.di.data.di.DataComponent
 import com.sajjady.di.data.di.FileLogger
@@ -72,9 +71,6 @@ object AppHiltModule {
 
     @Provides
     fun provideUserSessionManager(component: DataComponent): UserSessionManager = component.userSessionManager()
-
-    @Provides
-    fun provideNoteFormatterFactory(component: DataComponent): NoteFormatter.Factory = component.noteFormatterFactory()
 
     @Provides
     fun provideAnalyticsSet(component: DataComponent): Set<@JvmSuppressWildcards AnalyticsService> = component.multiboundAnalytics()
