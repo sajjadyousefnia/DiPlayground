@@ -1,7 +1,6 @@
 package com.sajjady.di.app
 
 import android.app.Application
-import com.sajjady.di.app.di.SystemTimeProvider
 import com.sajjady.di.core.model.AppConfig
 import com.sajjady.di.core.util.TimeProvider
 import com.sajjady.di.data.di.DaggerDataComponent
@@ -12,8 +11,7 @@ import dagger.hilt.android.HiltAndroidApp
 @HiltAndroidApp
 class DiApplication : Application(), DataComponentProvider {
 
-    lateinit var dataComponent: DataComponent
-        private set
+    private var dataComponent: DataComponent? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -21,13 +19,13 @@ class DiApplication : Application(), DataComponentProvider {
     }
 
     override fun dataComponent(): DataComponent {
-        if (!this::dataComponent.isInitialized) {
+        if (dataComponent == null) {
             dataComponent = DaggerDataComponent.builder()
                 .appConfig(defaultAppConfig())
                 .timeProvider(defaultTimeProvider())
                 .build()
         }
-        return dataComponent
+        return requireNotNull(dataComponent)
     }
 
     private fun defaultAppConfig(): AppConfig = AppConfig(
@@ -39,5 +37,7 @@ class DiApplication : Application(), DataComponentProvider {
         )
     )
 
-    private fun defaultTimeProvider(): TimeProvider = SystemTimeProvider()
+    private fun defaultTimeProvider(): TimeProvider = object : TimeProvider {
+        override fun now(): Long = System.currentTimeMillis()
+    }
 }

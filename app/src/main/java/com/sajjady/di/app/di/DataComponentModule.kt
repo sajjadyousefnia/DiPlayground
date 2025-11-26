@@ -1,17 +1,16 @@
 package com.sajjady.di.app.di
 
 import android.app.Application
-import com.sajjady.di.app.DiApplication
 import com.sajjady.di.core.api.AnalyticsService
 import com.sajjady.di.core.api.NotesRepository
 import com.sajjady.di.core.api.RemoteConfig
 import com.sajjady.di.core.api.UserSessionManager
 import com.sajjady.di.core.model.AppConfig
 import com.sajjady.di.core.util.TimeProvider
-import com.sajjady.di.data.di.DaggerDataComponent
 import com.sajjady.di.data.di.DataComponent
 import com.sajjady.di.data.di.FileLogger
 import com.sajjady.di.data.di.LogcatLogger
+import com.sajjady.di.data.di.DataComponentProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -44,18 +43,9 @@ object AppHiltModule {
     @Provides
     @Singleton
     fun provideDataComponent(
-        application: Application,
-        appConfig: AppConfig,
-        timeProvider: TimeProvider
+        application: Application
     ): DataComponent {
-        val component = DaggerDataComponent.builder()
-            .appConfig(appConfig)
-            .timeProvider(timeProvider)
-            .build()
-        if (application is DiApplication) {
-            application.dataComponent = component
-        }
-        return component
+        return (application as DataComponentProvider).dataComponent()
     }
 
     @Provides

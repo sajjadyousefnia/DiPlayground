@@ -1,7 +1,6 @@
 package com.sajjady.di.app.di
 
 import com.sajjady.di.ui.navigation.ScreenNavigator
-import com.sajjady.di.ui.util.ActivityScopedLogger
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,8 +13,4 @@ object ActivityModule {
     @Provides
     @ActivityScoped
     fun provideNavigator(): ScreenNavigator = ScreenNavigator()
-
-    @Provides
-    @ActivityScoped
-    fun provideLogger(): ActivityScopedLogger = ActivityScopedLogger()
 }
